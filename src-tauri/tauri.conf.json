@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.tauri.app/config/2",
+	"productName": "PenguinMod Desktop",
+	"version": "1.0.0",
+	"identifier": "com.penguinmod.app",
+	"build": {
+		"frontendDist": "../src"
+	},
+	"app": {
+		"withGlobalTauri": true,
+		"windows": [
+			{
+				"title": "PenguinMod Desktop",
+				"width": 1440,
+				"height": 810,
+
+				"browserExtensionsEnabled": false,
+				"center": true,
+				"devtools": true,
+
+				"url": "editor.html"
+			}
+		],
+		"security": {
+			"csp": null
+		}
+	},
+	"bundle": {
+		"active": true,
+		"targets": "all",
+		"icon": ["icons/icon.png", "icons/icon.ico"]
+	}
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="32px" viewBox="-4.5 -6 10 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>polygon-expand</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="polygon-expand" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M3,6c0,0.36639 -0.1374,0.73116 -0.4138,1.01163l-3.84399,3.90222c-0.5512,0.55931 -1.44269,0.55931 -1.99549,0c-0.5512,-0.55769 -0.5512,-9.27001 0,-9.8277c0.5512,-0.55931 1.44429,-0.55931 1.99549,0l3.84399,3.9006c0.2764,0.28047 0.4138,0.64524 0.4138,1.01325" id="expand" fill="#575E75"></path>
+    </g>
+</svg>

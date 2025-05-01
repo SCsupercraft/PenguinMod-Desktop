@@ -1,0 +1,18 @@
+{
+	"name": "penguinmod-desktop",
+	"description": "An unofficial desktop version of PenguinMod",
+	"author": {
+		"name": "SCsupercraft",
+		"url": "https://github.com/SCsupercraft"
+	},
+	"private": true,
+	"version": "1.0.0",
+	"type": "module",
+	"scripts": {
+		"tauri": "tauri",
+		"update": "node update.cjs"
+	},
+	"devDependencies": {
+		"@tauri-apps/cli": "^2"
+	}
+}
