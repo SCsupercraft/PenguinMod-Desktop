@@ -2,9 +2,6 @@ name: 'publish'
 
 on:
     workflow_dispatch:
-    push:
-        branches:
-            - main
 
 jobs:
     publish:
@@ -60,7 +57,7 @@ jobs:
               with:
                   tagName: v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
                   releaseName: 'PenguinMod Desktop v__VERSION__'
-                  releaseBody: 'See the assets to download this version and install.'
+                  releaseBody: 'See the assets to download this version and install.\n\nWindows:\n- PenguinMod.Desktop___VERSION___x64_en-US.msi\n- PenguinMod.Desktop___VERSION___x64-setup.exe\n\nLinux:\n- PenguinMod Desktop___VERSION___amd64.deb\n- PenguinMod Desktop-__VERSION__-1.x86_64.rpm\n- PenguinMod Desktop___VERSION___amd64.AppImage\n\nMacOS (arm):\n- PenguinMod Desktop___VERSION___aarch64.dmg\n- PenguinMod Desktop_aarch64.app.tar.gz\n\nMacOS (x86):\n- PenguinMod Desktop___VERSION___x64.dmg\n- PenguinMod Desktop_x64.app.tar.gz'
                   releaseDraft: true
                   prerelease: false
                   args: ${{ matrix.args }}
