@@ -32,7 +32,7 @@ try {
 }
 
 const git = processes.exec(
-	'git clone https://github.com/PenguinMod/penguinmod.github.io.git ./penguinmod',
+	'git clone https://github.com/SCsupercraft/PenguinMod-Desktop-Gui.git ./penguinmod',
 	{ cwd: __dirname }
 );
 
