@@ -6,6 +6,17 @@
     "main"
   ],
   "permissions": [
-    "core:webview:allow-create-webview-window"
+    "core:webview:allow-create-webview-window",
+    "fs:default",
+    "fs:allow-appcache-read",
+    "fs:allow-appcache-write",
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{
+        "path": "$APPCACHE/*"
+      }, {
+        "path": "$APPCACHE"
+      }]
+    }
   ]
 }

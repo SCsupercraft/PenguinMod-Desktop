@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.1.0
+
+If you previously loaded an extension while online, you will now be able to use it while offline.
+
+### Added
+
+- Added an extension cache
+
+### Changed
+
+- Changed how logs are handled internally
+
 ## v1.0.1
 
 Added logs and fixed addons.
