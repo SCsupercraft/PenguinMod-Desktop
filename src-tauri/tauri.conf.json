@@ -10,7 +10,7 @@
 		"withGlobalTauri": true,
 		"windows": [
 			{
-				"title": "PenguinMod Desktop - Version 1.2.0",
+				"title": "PenguinMod Desktop - Version 1.2.1",
 				"label": "main",
 				"width": 1440,
 				"height": 810,
