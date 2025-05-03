@@ -21,6 +21,7 @@ jobs:
                       args: ''
 
         runs-on: ${{ matrix.platform }}
+        environment: Publish
         steps:
             - uses: actions/checkout@v4
 
@@ -54,6 +55,8 @@ jobs:
             - uses: tauri-apps/tauri-action@v0
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.UPDATE_KEY }}
+                  TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.UPDATE_PASSWORD }}
               with:
                   tagName: v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
                   releaseName: 'PenguinMod Desktop v__VERSION__'

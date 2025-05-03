@@ -6,7 +6,7 @@
 		"url": "https://github.com/SCsupercraft"
 	},
 	"private": true,
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"type": "module",
 	"scripts": {
 		"tauri": "tauri",
@@ -17,6 +17,7 @@
 	},
 	"dependencies": {
 		"@tauri-apps/plugin-fs": "^2.2.1",
-		"@tauri-apps/plugin-log": "^2.4.0"
+		"@tauri-apps/plugin-log": "^2.4.0",
+		"@tauri-apps/plugin-updater": "^2.7.1"
 	}
 }

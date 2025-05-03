@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.2.0
+
+The app should now auto update.
+
+### Added
+
+- The app now has an automatic updater
+
 ## v1.1.0
 
 If you previously loaded an extension while online, you will now be able to use it while offline.
