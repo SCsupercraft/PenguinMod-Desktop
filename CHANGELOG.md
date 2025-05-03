@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.2.1
+
+Fixed an issue with loading extensions.
+
+### Fixed
+
+- Fixed loading extensions using `data:` or `file:` protocols while offline
+
 ## v1.2.0
 
 The app should now auto update.
