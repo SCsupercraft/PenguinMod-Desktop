@@ -6,11 +6,12 @@
 		"url": "https://github.com/SCsupercraft"
 	},
 	"private": true,
-	"version": "1.2.1",
+	"version": "1.3.0",
 	"type": "module",
 	"scripts": {
 		"tauri": "tauri",
-		"update": "node update.cjs"
+		"update": "node update.cjs",
+		"update:local": "node update-local.cjs"
 	},
 	"devDependencies": {
 		"@tauri-apps/cli": "^2"

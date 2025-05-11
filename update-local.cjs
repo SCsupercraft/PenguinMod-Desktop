@@ -1,0 +1,76 @@
+const processes = require('node:child_process');
+const path = require('node:path');
+const fs = require('node:fs');
+
+if (process.versions.node.split('.')[0] != '16') {
+	console.error('Please use Node v16 for updating penguinmod versions!');
+	process.exit(0);
+}
+
+const pmDir = path.resolve(__dirname, 'penguinmod');
+try {
+	fs.accessSync(pmDir);
+	fs.rmSync(pmDir, {
+		recursive: true,
+		force: true,
+	});
+} catch {
+} finally {
+	fs.mkdirSync(pmDir);
+}
+
+const srcDir = path.resolve(__dirname, 'src');
+try {
+	fs.accessSync(srcDir);
+	fs.rmSync(srcDir, {
+		recursive: true,
+		force: true,
+	});
+} catch {
+} finally {
+	fs.mkdirSync(srcDir);
+}
+
+const pmSrc = path.resolve(__dirname, '../PenguinMod-Desktop-Gui');
+try {
+	fs.accessSync(pmSrc);
+} catch {
+	console.error(`No directory exists at ${pmSrc}`);
+	process.exit(0);
+}
+
+console.log(`Cloning from '${path.relative(__dirname, pmSrc)}'`);
+
+fs.cpSync(pmSrc, pmDir, {
+	recursive: true,
+	force: true,
+});
+
+fs.rmSync(path.resolve(pmDir, 'package-lock.json'));
+processes
+	.spawn('npm i --force', {
+		cwd: pmDir,
+		stdio: 'inherit',
+		shell: true,
+	})
+	.once('close', (code) => {
+		if (code != 0) throw new Error('An unexpected error occurred!');
+
+		process.env.NODE_ENV = 'production';
+
+		processes
+			.spawn('npm run build', {
+				cwd: pmDir,
+				stdio: 'inherit',
+				shell: true,
+			})
+			.once('close', (code) => {
+				if (code != 0) throw new Error('An unexpected error occurred!');
+
+				fs.cpSync(path.resolve(pmDir, 'build'), srcDir, {
+					recursive: true,
+					force: true,
+				});
+				fs.rmSync(pmDir, { recursive: true, force: true });
+			});
+	});

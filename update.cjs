@@ -31,30 +31,19 @@ try {
 	fs.mkdirSync(srcDir);
 }
 
-const git = processes.exec(
-	'git clone https://github.com/SCsupercraft/PenguinMod-Desktop-Gui.git ./penguinmod',
-	{ cwd: __dirname }
-);
-
-git.stdout.pipe(process.stdout);
-git.stderr.pipe(process.stderr);
-git.once('exit', (code) => {
-	if (code != 0) throw new Error('An unexpected error occurred!');
-
-	fs.rmSync(path.resolve(pmDir, 'package-lock.json'));
-	const npm = processes.exec('npm i --force', {
-		cwd: pmDir,
-	});
-
-	npm.stdout.pipe(process.stdout);
-	npm.stderr.pipe(process.stderr);
-	npm.once('exit', (code) => {
+processes
+	.spawn(
+		'git clone https://github.com/SCsupercraft/PenguinMod-Desktop-Gui.git ./penguinmod', {
+			cwd: __dirname,
+			stdio: 'inherit',
+			shell: true,
+	})
+	.once('close', (code) => {
 		if (code != 0) throw new Error('An unexpected error occurred!');
 
-		process.env.NODE_ENV = 'production';
-
+		fs.rmSync(path.resolve(pmDir, 'package-lock.json'));
 		processes
-			.spawn('npm run build', {
+			.spawn('npm i --force', {
 				cwd: pmDir,
 				stdio: 'inherit',
 				shell: true,
@@ -62,11 +51,22 @@ git.once('exit', (code) => {
 			.once('close', (code) => {
 				if (code != 0) throw new Error('An unexpected error occurred!');
 
-				fs.cpSync(path.resolve(pmDir, 'build'), srcDir, {
-					recursive: true,
-					force: true,
-				});
-				fs.rmSync(pmDir, { recursive: true, force: true });
+				process.env.NODE_ENV = 'production';
+
+				processes
+					.spawn('npm run build', {
+						cwd: pmDir,
+						stdio: 'inherit',
+						shell: true,
+					})
+					.once('close', (code) => {
+						if (code != 0) throw new Error('An unexpected error occurred!');
+
+						fs.cpSync(path.resolve(pmDir, 'build'), srcDir, {
+							recursive: true,
+							force: true,
+						});
+						fs.rmSync(pmDir, { recursive: true, force: true });
+					});
 			});
 	});
-});

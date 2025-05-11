@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.3.0
+
+Updated to latest version of PenguinMod and added a new extension.
+
+### Added
+
+- There is now a `Webview Windows` extension, which will receive more features in future updates
+    - This will only work with PenguinMod Desktop, and will not work in packaged projects or PenguinMod
+
+### Changed
+
+- Updated to latest version of PenguinMod as of the `11th of May 2025`
+
 ## v1.2.1
 
 Fixed an issue with loading extensions.
