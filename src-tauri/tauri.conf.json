@@ -34,7 +34,8 @@
                 "url": "editor.html",
                 "focus": true,
                 "visible": false,
-                "create": false
+                "create": false,
+                "zoomHotkeysEnabled": true
             }
         ],
         "security": {
