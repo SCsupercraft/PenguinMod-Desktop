@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.5.6
+
+Updated to the latest version of PenguinMod and some other changes.
+
+### Added
+
+- You can now use hotkeys for zooming in/out (CTRL + and CTRL -)
+
+### Changed
+
+- Updated to the latest version of PenguinMod as of the `6th of February 2026`
+
 ## v1.5.5
 
 Updated to the latest version of PenguinMod.
@@ -44,7 +56,7 @@ The issue was caused by an error when the app could not check for updates.
 
 ## v1.5.0
 
-Updated to the latest version of PenguinMod and added a splash screen
+Updated to the latest version of PenguinMod and added a splash screen.
 
 ### Added
 
