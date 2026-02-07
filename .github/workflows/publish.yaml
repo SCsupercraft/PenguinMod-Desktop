@@ -37,6 +37,9 @@ jobs:
                   node-version: 20.x
                   cache: 'npm' # Set this to npm, yarn or pnpm.
 
+            - name: update changelog page
+              run: 'npm run update:whats-new'
+
             - name: install Rust stable
               uses: dtolnay/rust-toolchain@stable # Set this to dtolnay/rust-toolchain@nightly
               with:
@@ -62,6 +65,7 @@ jobs:
                   releaseName: 'PenguinMod Desktop v__VERSION__'
                   releaseBody: |
                     See the assets to download this version and install.
+                    [Click here to view the full changelog.](https://github.com/PenguinMod-Desktop/PenguinMod-Desktop/blob/main/CHANGELOG.md)
 
                     Windows:
                     - PenguinMod.Desktop___VERSION___x64_en-US.msi

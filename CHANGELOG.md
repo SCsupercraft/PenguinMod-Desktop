@@ -1,49 +1,65 @@
 # Changelog
 
+## v1.5.7
+
+Updated to the latest version of [PenguinMod](https://penguinmod.com/) and some other changes.
+
+### Added
+
+- There is now a `What's new?` page that opens when launching for the first time
+
+### Changed
+
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `7th of February 2026`
+- The app will now shutdown when:
+  - The splash screen is closed before setup is complete
+  - The editor is closed, even if other windows are still open
+
 ## v1.5.6
 
-Updated to the latest version of PenguinMod and some other changes.
+Updated to the latest version of [PenguinMod](https://penguinmod.com/) and some other changes.
 
 ### Added
 
 - You can now use hotkeys for zooming in/out (CTRL + and CTRL -)
+  - Resolves: [Issue #2](https://github.com/PenguinMod-Desktop/PenguinMod-Desktop/issues/2)
 
 ### Changed
 
-- Updated to the latest version of PenguinMod as of the `6th of February 2026`
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `6th of February 2026`
 
 ## v1.5.5
 
-Updated to the latest version of PenguinMod.
+Updated to the latest version of [PenguinMod](https://penguinmod.com/).
 
 ### Changed
 
-- Updated to the latest version of PenguinMod as of the `22nd of January 2026`
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `22nd of January 2026`
 
 ## v1.5.4
 
-Updated to the latest version of PenguinMod.
+Updated to the latest version of [PenguinMod](https://penguinmod.com/).
 
 ### Changed
 
-- Updated to the latest version of PenguinMod as of the `17th of January 2026`
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `17th of January 2026`
 - The splash screen now displays the current version of PenguinMod Desktop
 
 ## v1.5.3
 
-Updated to the latest version of PenguinMod.
+Updated to the latest version of [PenguinMod](https://penguinmod.com/).
 
 ### Changed
 
-- Updated to the latest version of PenguinMod as of the `1st of January 2026`
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `1st of January 2026`
 
 ## v1.5.2
 
-Updated to the latest version of PenguinMod.
+Updated to the latest version of [PenguinMod](https://penguinmod.com/).
 
 ### Changed
 
-- Updated to the latest version of PenguinMod as of the `26th of December 2025`
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `26th of December 2025`
 
 ## v1.5.1
 
@@ -56,7 +72,7 @@ The issue was caused by an error when the app could not check for updates.
 
 ## v1.5.0
 
-Updated to the latest version of PenguinMod and added a splash screen.
+Updated to the latest version of [PenguinMod](https://penguinmod.com/) and added a splash screen.
 
 ### Added
 
@@ -65,43 +81,43 @@ Updated to the latest version of PenguinMod and added a splash screen.
 
 ### Changed
 
-- Updated to the latest version of PenguinMod as of the `24th of December 2025`
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `24th of December 2025`
 
 ## v1.4.4
 
-Updated to the latest version of PenguinMod.
+Updated to the latest version of [PenguinMod](https://penguinmod.com/).
 
 ### Changed
 
-- Updated to the latest version of PenguinMod as of the `23rd of October 2025`
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `23rd of October 2025`
 
 ## v1.4.3
 
-Updated to the latest version of PenguinMod.
+Updated to the latest version of [PenguinMod](https://penguinmod.com/).
 
 ### Changed
 
-- Updated to the latest version of PenguinMod as of the `8th of September 2025`
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `8th of September 2025`
 
 ## v1.4.2
 
-Updated to the latest version of PenguinMod.
+Updated to the latest version of [PenguinMod](https://penguinmod.com/).
 
 ### Changed
 
-- Updated to the latest version of PenguinMod as of the `3rd of August 2025`
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `3rd of August 2025`
 
 ## v1.4.1
 
-Updated to the latest version of PenguinMod.
+Updated to the latest version of [PenguinMod](https://penguinmod.com/).
 
 ### Changed
 
-- Updated to the latest version of PenguinMod as of the `2nd of August 2025`
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `2nd of August 2025`
 
 ## v1.4.0
 
-Updated to the latest version of PenguinMod and some other changes.
+Updated to the latest version of [PenguinMod](https://penguinmod.com/) and some other changes.
 
 ### Added
 
@@ -110,21 +126,21 @@ Updated to the latest version of PenguinMod and some other changes.
 
 ### Changed
 
-- Updated to the latest version of PenguinMod as of the `19th of July 2025`
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `19th of July 2025`
 - Updated the `Webview Windows` extension, which has been moved to livetests
 
 ## v1.3.0
 
-Updated to the latest version of PenguinMod and added a new extension.
+Updated to the latest version of [PenguinMod](https://penguinmod.com/) and added a new extension.
 
 ### Added
 
 - There is now a `Webview Windows` extension, which will receive more features in future updates
-  - This will only work with PenguinMod Desktop, and will not work in packaged projects or PenguinMod
+  - This will only work with PenguinMod Desktop, and will not work in packaged projects or [PenguinMod](https://penguinmod.com/)
 
 ### Changed
 
-- Updated to the latest version of PenguinMod as of the `11th of May 2025`
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `11th of May 2025`
 
 ## v1.2.1
 

@@ -6,12 +6,13 @@
         "url": "https://github.com/SCsupercraft"
     },
     "private": true,
-    "version": "1.5.6",
+    "version": "1.5.7",
     "type": "module",
     "scripts": {
         "tauri": "tauri",
         "update": "node update.cjs",
         "update:local": "node update-local.cjs",
+        "update:whats-new": "node update-whats-new-page.cjs",
         "bump": "node bump.cjs"
     },
     "devDependencies": {
