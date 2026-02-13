@@ -38,7 +38,7 @@ jobs:
                   cache: 'npm' # Set this to npm, yarn or pnpm.
 
             - name: update changelog page
-              run: 'npm run update:whats-new'
+              run: 'npm run update-whats-new'
 
             - name: install Rust stable
               uses: dtolnay/rust-toolchain@stable # Set this to dtolnay/rust-toolchain@nightly
