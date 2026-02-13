@@ -6,13 +6,17 @@
         "url": "https://github.com/SCsupercraft"
     },
     "private": true,
-    "version": "1.5.7",
+    "version": "1.5.8",
     "type": "module",
     "scripts": {
         "tauri": "tauri",
+        "update-all": "npm run update && npm run update-packager && npm run update-whats-new",
+        "update-all:local": "npm run update:local && npm run update-packager:local && npm run update-whats-new",
         "update": "node update.cjs",
         "update:local": "node update-local.cjs",
-        "update:whats-new": "node update-whats-new-page.cjs",
+        "update-packager": "node update-packager.cjs",
+        "update-packager:local": "node update-packager-local.cjs",
+        "update-whats-new": "node update-whats-new-page.cjs",
         "bump": "node bump.cjs"
     },
     "devDependencies": {

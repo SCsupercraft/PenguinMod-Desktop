@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.5.8
+
+Updated to the latest version of [PenguinMod](https://penguinmod.com/) and added the packager.
+
+### Added
+
+- Added the [PenguinMod Packager](https://studio.penguinmod.com/PenguinMod-Packager/) into the app
+  - The `package project` button should now work
+
+### Changed
+
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `13th of February 2026`
+
 ## v1.5.7
 
 Updated to the latest version of [PenguinMod](https://penguinmod.com/) and some other changes.

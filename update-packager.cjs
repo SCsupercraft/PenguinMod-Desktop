@@ -1,22 +1,24 @@
 const processes = require('node:child_process');
 const path = require('node:path');
 const fs = require('node:fs');
-const { common, clean } = require('./update-common.cjs');
+const { commonPackager, clean } = require('./update-common.cjs');
 
 // if (process.versions.node.split('.')[0] != '16') {
 // 	console.error('Please use Node v16 for updating penguinmod versions!');
 // 	process.exit(0);
 // }
 
-const pmDir = path.resolve(__dirname, 'penguinmod');
-clean(pmDir);
+const packagerDir = path.resolve(__dirname, 'packager');
+clean(packagerDir)
 
 const srcDir = path.resolve(__dirname, 'src');
-clean(srcDir);
+try {
+  fs.mkdirSync(srcDir);
+} catch {}
 
 processes
   .spawn(
-    'git clone https://github.com/PenguinMod-Desktop/PenguinMod-Desktop-Gui.git ./penguinmod',
+    'git clone https://github.com/PenguinMod-Desktop/PenguinMod-Desktop-Packager.git ./packager',
     {
       cwd: __dirname,
       stdio: 'inherit',
@@ -25,8 +27,8 @@ processes
   )
   .once('close', (code) => {
     if (code != 0) {
-      clean(pmDir, false);
+      clean(packagerDir, false);
       throw new Error('An unexpected error occurred!');
     }
-    common();
+    commonPackager();
   });
