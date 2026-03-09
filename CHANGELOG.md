@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.5.9
+
+Updated to the latest version of [PenguinMod](https://penguinmod.com/).
+
+### Changed
+
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `9th of March 2026`
+- The packager *should* now display a **file selector popup** for saving packaged projects (if available)
+
 ## v1.5.8
 
 Updated to the latest version of [PenguinMod](https://penguinmod.com/) and added the packager.
