@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.5.10
+
+Updated to the latest version of [PenguinMod](https://penguinmod.com/), and made some enhancements.
+
+### Added
+
+- Pressing `F11` now toggles fullscreen
+  - Resolves: [Issue #4](https://github.com/PenguinMod-Desktop/PenguinMod-Desktop/issues/4)
+
+### Changed
+
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `18th of March 2026`
+
+### Fixed
+
+- Opening links from PenguinMod Desktop *should* work as intended
+  - Resolves: [Issue #5](https://github.com/PenguinMod-Desktop/PenguinMod-Desktop/issues/5)
+
 ## v1.5.9
 
 Updated to the latest version of [PenguinMod](https://penguinmod.com/).
@@ -8,6 +26,7 @@ Updated to the latest version of [PenguinMod](https://penguinmod.com/).
 
 - Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `9th of March 2026`
 - The packager *should* now display a **file selector popup** for saving packaged projects (if available)
+  - Resolves: [Issue #3](https://github.com/PenguinMod-Desktop/PenguinMod-Desktop/issues/3)
 
 ## v1.5.8
 
@@ -17,6 +36,7 @@ Updated to the latest version of [PenguinMod](https://penguinmod.com/) and added
 
 - Added the [PenguinMod Packager](https://studio.penguinmod.com/PenguinMod-Packager/) into the app
   - The `package project` button should now work
+  - Resolves: [Issue #2](https://github.com/PenguinMod-Desktop/PenguinMod-Desktop/issues/2)
 
 ### Changed
 
