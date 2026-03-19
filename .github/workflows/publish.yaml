@@ -61,8 +61,8 @@ jobs:
     name: Build Backend (${{ matrix.name }})
     environment: Publish
     outputs:
-      release_id: ${{ steps.set-release-id.outputs.releaseId }}
-      app_version: ${{ steps.set-release-id.outputs.appVersion }}
+      release_id: ${{ steps.tauri.outputs.releaseId }}
+      app_version: ${{ steps.tauri.outputs.appVersion }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -132,12 +132,6 @@ jobs:
           releaseDraft: true
           prerelease: false
           args: ${{ matrix.args }}
-
-      - name: Prepare for Publishing
-        id: set-release-id
-        run: |
-          echo "releaseId=${{ steps.tauri.outputs.releaseId }}" >> $GITHUB_OUTPUT
-          echo "appVersion=${{ steps.tauri.outputs.appVersion }}" >> $GITHUB_OUTPUT
   publish:
     name: Publish
     needs: build-backend
