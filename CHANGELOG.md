@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.5.11
+
+Updated to the latest version of [PenguinMod](https://penguinmod.com/), and made some enhancements.
+
+### Changed
+
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `19th of March 2026`
+- If the **file selector popup** is unavailable, an alert is displayed telling you to check the downloads folder instead
+- Similarly to the packager, some parts of the editor *should* now display a **file selector popup** (if available)
+  - Previously, it would put the file in your downloads folder without any notification
+  - Resolves: [Issue #6](https://github.com/PenguinMod-Desktop/PenguinMod-Desktop/issues/6)
+
 ## v1.5.10
 
 Updated to the latest version of [PenguinMod](https://penguinmod.com/), and made some enhancements.

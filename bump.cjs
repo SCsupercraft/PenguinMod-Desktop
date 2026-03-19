@@ -5,7 +5,7 @@ const readline = require('readline').createInterface({
 });
 
 readline.question(
-  'Enter a number from 1-3\n\t1: MAJOR\n\t2: MINOR\n\t3: PATCH\n\t4: SAME\n',
+  'Enter a number from 1-4\n\t1: MAJOR\n\t2: MINOR\n\t3: PATCH\n\t4: SAME\n',
   async (type) => {
     const cargo = (await fs.readFile('src-tauri/Cargo.toml', 'utf-8')).split(
       '\n',
