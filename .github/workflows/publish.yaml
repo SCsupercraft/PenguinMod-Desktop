@@ -1,4 +1,4 @@
-name: 'publish'
+name: 'Build and Publish'
 
 on:
   workflow_dispatch:
@@ -60,6 +60,8 @@ jobs:
     needs: build-frontend
     name: Build Backend (${{ matrix.name }})
     environment: Publish
+    outputs:
+      release_id: ${{ steps.tauri.outputs.releaseId }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -98,6 +100,7 @@ jobs:
 
       - name: Build and Upload
         uses: tauri-apps/tauri-action@v0
+        id: tauri
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.UPDATE_KEY }}
@@ -128,3 +131,34 @@ jobs:
           releaseDraft: true
           prerelease: false
           args: ${{ matrix.args }}
+  publish:
+    name: Publish
+    needs: build-backend
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - name: Publish Release as Latest
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const releaseId = process.env.RELEASE_ID;
+
+            if (!releaseId) {
+              core.setFailed("No releaseId found from tauri-action.");
+              return;
+            }
+
+            await github.rest.repos.updateRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: releaseId,
+              draft: false,
+              prerelease: false,
+              make_latest: "true"
+            });
+
+            core.info(`Published release ${releaseId} as latest.`);
+        env:
+          RELEASE_ID: ${{ needs.build-backend.outputs.release_id }}
