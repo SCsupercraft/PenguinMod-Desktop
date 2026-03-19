@@ -134,10 +134,11 @@ jobs:
 
       - name: Prepare for Publishing
         id: set-release-id
-        if: matrix.platform == 'ubuntu-22.04'
         run: |
-          echo "releaseId=${{ steps.tauri.outputs.releaseId }}" >> $GITHUB_OUTPUT
-          echo "appVersion=${{ steps.tauri.outputs.appVersion }}" >> $GITHUB_OUTPUT
+          if [ -n "${{ steps.tauri.outputs.releaseId }}" ]; then
+            echo "releaseId=${{ steps.tauri.outputs.releaseId }}" >> $GITHUB_OUTPUT
+            echo "appVersion=${{ steps.tauri.outputs.appVersion }}" >> $GITHUB_OUTPUT
+          fi
   publish:
     name: Publish
     needs: build-backend
