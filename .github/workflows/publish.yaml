@@ -136,10 +136,8 @@ jobs:
       - name: Prepare for Publishing
         id: set-release-id
         run: |
-          if [ -n "${{ steps.tauri.outputs.releaseId }}" ]; then
-            echo "releaseId=${{ steps.tauri.outputs.releaseId }}" >> $GITHUB_OUTPUT
-            echo "appVersion=${{ steps.tauri.outputs.appVersion }}" >> $GITHUB_OUTPUT
-          fi
+          echo "releaseId=${{ steps.tauri.outputs.releaseId }}" >> $GITHUB_OUTPUT
+          echo "appVersion=${{ steps.tauri.outputs.appVersion }}" >> $GITHUB_OUTPUT
   publish:
     name: Publish
     needs: build-backend
