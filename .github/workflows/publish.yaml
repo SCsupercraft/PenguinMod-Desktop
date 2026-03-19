@@ -7,8 +7,6 @@ jobs:
   build-frontend:
     name: Build Frontend
     runs-on: ubuntu-22.04
-    outputs:
-      frontend-artifact-id: ${{ steps.frontend-artifact.outputs.artifact-id }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -92,7 +90,7 @@ jobs:
       - name: Download Frontend
         uses: actions/download-artifact@v4
         with:
-          artifact-ids: ${{ needs.build-frontend.outputs.frontend-artifact-id }}
+          name: frontend
           path: src/
 
       - name: Install Frontend Dependencies
