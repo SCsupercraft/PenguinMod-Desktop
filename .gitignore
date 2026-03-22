@@ -9,6 +9,9 @@ lerna-debug.log*
 
 node_modules
 penguinmod
+packager
+app/packager.html
+src
 dist
 dist-ssr
 src-tauri/target

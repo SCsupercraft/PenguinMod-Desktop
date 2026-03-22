@@ -18,7 +18,6 @@
                 "center": true,
                 "devtools": true,
                 "url": "init.html",
-                "alwaysOnTop": true,
                 "closable": false,
                 "resizable": false,
                 "decorations": false
@@ -34,7 +33,24 @@
                 "url": "editor.html",
                 "focus": true,
                 "visible": false,
-                "create": false
+                "create": false,
+                "zoomHotkeysEnabled": true
+            },
+            {
+                "title": "What's New",
+                "label": "changelog",
+                "width": 500,
+                "height": 800,
+                "browserExtensionsEnabled": false,
+                "center": true,
+                "devtools": true,
+                "url": "whats-new.html",
+                "focus": true,
+                "visible": true,
+                "create": false,
+                "closable": false,
+                "resizable": false,
+                "decorations": false
             }
         ],
         "security": {

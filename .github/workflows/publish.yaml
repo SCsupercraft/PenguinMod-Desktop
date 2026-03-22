@@ -1,84 +1,199 @@
-name: 'publish'
+name: 'Build and Publish'
 
 on:
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
-    publish:
-        permissions:
-            contents: write
-        strategy:
-            fail-fast: false
-            matrix:
-                include:
-                    - platform: 'macos-latest' # for Arm based macs (M1 and above).
-                      args: '--target aarch64-apple-darwin'
-                    - platform: 'macos-latest' # for Intel based macs.
-                      args: '--target x86_64-apple-darwin'
-                    - platform: 'ubuntu-22.04'
-                      args: ''
-                    - platform: 'windows-latest'
-                      args: ''
+  build-frontend:
+    name: Build Frontend
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-        runs-on: ${{ matrix.platform }}
-        environment: Publish
-        steps:
-            - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
 
-            - name: install dependencies (ubuntu only)
-              if: matrix.platform == 'ubuntu-22.04' # This must match the platform value defined above.
-              run: |
-                  sudo apt-get update
-                  sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+      - name: Build Editor
+        run: 'npm run update'
 
-            - name: setup node
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 20.x
-                  cache: 'npm' # Set this to npm, yarn or pnpm.
+      - name: Build Packager
+        run: 'npm run update-packager'
 
-            - name: install Rust stable
-              uses: dtolnay/rust-toolchain@stable # Set this to dtolnay/rust-toolchain@nightly
-              with:
-                  # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
-                  targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+      - name: Create Changelog Page
+        run: 'npm run update-whats-new'
 
-            - name: Rust cache
-              uses: swatinem/rust-cache@v2
-              with:
-                  workspaces: './src-tauri -> target'
+      - name: Upload Frontend
+        uses: actions/upload-artifact@v4
+        id: frontend-artifact
+        with:
+          name: frontend
+          path: src/
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0
+          overwrite: true
+  build-backend:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: 'macos-latest' # for Arm based macs (M1 and above).
+            args: '--target aarch64-apple-darwin'
+            name: macOS AArch64
+          - platform: 'macos-latest' # for Intel based macs.
+            args: '--target x86_64-apple-darwin'
+            name: macOS x86_64
+          - platform: 'ubuntu-22.04'
+            args: ''
+            name: Linux
+          - platform: 'windows-latest'
+            args: ''
+            name: Windows
 
-            - name: install frontend dependencies
-              # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
-              run: npm install # change this to npm or pnpm depending on which one you use.
+    runs-on: ${{ matrix.platform }}
+    needs: build-frontend
+    name: Build Backend (${{ matrix.name }})
+    environment: Publish
+    outputs:
+      release_id: ${{ steps.tauri.outputs.releaseId }}
+      app_version: ${{ steps.tauri.outputs.appVersion }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-            - uses: tauri-apps/tauri-action@v0
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.UPDATE_KEY }}
-                  TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.UPDATE_PASSWORD }}
-              with:
-                  tagName: v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
-                  releaseName: 'PenguinMod Desktop v__VERSION__'
-                  releaseBody: |
-                    See the assets to download this version and install.
+      - name: Install Dependencies (Ubuntu only)
+        if: matrix.platform == 'ubuntu-22.04' # This must match the platform value defined above.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
 
-                    Windows:
-                    - PenguinMod.Desktop___VERSION___x64_en-US.msi
-                    - PenguinMod.Desktop___VERSION___x64-setup.exe
-                    
-                    Linux:
-                    - PenguinMod.Desktop___VERSION___amd64.deb
-                    - PenguinMod.Desktop-__VERSION__-1.x86_64.rpm
-                    - PenguinMod.Desktop___VERSION___amd64.AppImage
-                    
-                    MacOS (arm):
-                    - PenguinMod.Desktop___VERSION___aarch64.dmg
-                    - PenguinMod.Desktop_aarch64.app.tar.gz
-                    
-                    MacOS (x86):
-                    - PenguinMod.Desktop___VERSION___x64.dmg
-                    - PenguinMod.Desktop_x64.app.tar.gz
-                  releaseDraft: true
-                  prerelease: false
-                  args: ${{ matrix.args }}
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+
+      - name: Install Rust Stable
+        uses: dtolnay/rust-toolchain@stable # Set this to dtolnay/rust-toolchain@nightly
+        with:
+          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+
+      - name: Rust Cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
+
+      - name: Download Frontend
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend
+          path: src/
+
+      - name: Install Frontend Dependencies
+        run: npm install
+
+      - name: Build and Upload
+        uses: tauri-apps/tauri-action@v0
+        id: tauri
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.UPDATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.UPDATE_PASSWORD }}
+        with:
+          tagName: v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
+          releaseName: 'PenguinMod Desktop v__VERSION__'
+          releaseBody: |
+            See the assets to download this version and install.
+            [Click here to view the full changelog.](https://github.com/PenguinMod-Desktop/PenguinMod-Desktop/blob/main/CHANGELOG.md)
+
+            Windows:
+            - PenguinMod.Desktop___VERSION___x64_en-US.msi
+            - PenguinMod.Desktop___VERSION___x64-setup.exe
+
+            Linux:
+            - PenguinMod.Desktop___VERSION___amd64.deb
+            - PenguinMod.Desktop-__VERSION__-1.x86_64.rpm
+            - PenguinMod.Desktop___VERSION___amd64.AppImage
+
+            MacOS (arm):
+            - PenguinMod.Desktop___VERSION___aarch64.dmg
+            - PenguinMod.Desktop_aarch64.app.tar.gz
+
+            MacOS (x86):
+            - PenguinMod.Desktop___VERSION___x64.dmg
+            - PenguinMod.Desktop_x64.app.tar.gz
+          releaseDraft: true
+          prerelease: false
+          args: ${{ matrix.args }}
+  publish:
+    name: Publish
+    needs: build-backend
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - name: Publish Release as Latest
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const releaseId = process.env.RELEASE_ID;
+            const appVersion = process.env.APP_VERSION;
+
+            if (!releaseId) {
+              core.setFailed("Failed to find release id.");
+              return;
+            }
+
+            if (!appVersion) {
+              core.setFailed("Failed to find app version.");
+              return;
+            }
+
+            const { data: release } = await github.rest.repos.getRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: releaseId
+            });
+
+            const tag = `v${appVersion}`;
+            core.info(`Using tag: ${tag}`);
+
+            try {
+              await github.rest.git.getRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `tags/${tag}`
+              });
+              core.info(`Tag ${tag} already exists.`);
+            } catch {
+              core.info(`Creating tag ${tag}...`);
+              await github.rest.git.createRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `refs/tags/${tag}`,
+                sha: release.target_commitish || "main"
+              });
+            }
+
+            await github.rest.repos.updateRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: releaseId,
+              tag_name: tag,
+              draft: false,
+              prerelease: false,
+              make_latest: "true"
+            });
+
+            core.info(`Published release ${tag} as latest.`);
+        env:
+          RELEASE_ID: ${{ needs.build-backend.outputs.release_id }}
+          APP_VERSION: ${{ needs.build-backend.outputs.app_version }}

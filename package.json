@@ -10,8 +10,13 @@
   "type": "module",
   "scripts": {
     "tauri": "tauri",
+    "update-all": "npm run update && npm run update-packager && npm run update-whats-new",
+    "update-all:local": "npm run update:local && npm run update-packager:local && npm run update-whats-new",
     "update": "node update.cjs",
     "update:local": "node update-local.cjs",
+    "update-packager": "node update-packager.cjs",
+    "update-packager:local": "node update-packager-local.cjs",
+    "update-whats-new": "node update-whats-new-page.cjs",
     "bump": "node bump.cjs"
   },
   "devDependencies": {
@@ -22,6 +27,7 @@
     "@tauri-apps/plugin-deep-link": "2.4.6",
     "@tauri-apps/plugin-fs": "2.4.0",
     "@tauri-apps/plugin-log": "2.7.0",
+    "@tauri-apps/plugin-opener": "^2.5.3",
     "@tauri-apps/plugin-process": "2.3.1",
     "@tauri-apps/plugin-store": "2.4.0",
     "@tauri-apps/plugin-updater": "2.9.0"
