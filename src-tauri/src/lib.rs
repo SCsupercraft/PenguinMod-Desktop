@@ -10,6 +10,7 @@ struct SetupState {
     frontend_init_task: bool,
     frontend_load_task: bool,
     frontend_changelog_closed: bool,
+    backend_startup_file: Option<PathBuf>,
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -21,6 +22,7 @@ pub fn run() {
             frontend_init_task: false,
             frontend_load_task: false,
             frontend_changelog_closed: false,
+            backend_startup_file: None,
         })))
         .plugin(tauri_plugin_store::Builder::new().build())
         .plugin(tauri_plugin_updater::Builder::new().build())
@@ -41,6 +43,16 @@ pub fn run() {
         .plugin(tauri_plugin_deep_link::init())
         .invoke_handler(tauri::generate_handler![create_changelog_window, create_main_window, set_complete])
         .setup(|app| {
+            if let Some(path) = std::env::args()
+                .nth(1)
+                .map(PathBuf::from)
+                .filter(|p| p.exists() && p.is_file())
+            {
+                let state: State<Arc<Mutex<SetupState>>> = app.state();
+                let mut state = state.lock().unwrap();
+                state.backend_startup_file = Some(path);
+            }
+            
             let app_handle = app.handle().clone();
 
             Ok(if let Some(init_window) = app.get_webview_window("init") {
@@ -144,11 +156,15 @@ async fn create_changelog_window(
 #[tauri::command]
 async fn create_main_window(
     app: AppHandle, 
+    state: State<'_, Arc<Mutex<SetupState>>>,
     deep_link: Option<String>,
 ) -> Result<(), ()> {
     let mut config = app.config().app.windows.get(1).cloned().unwrap();
 
-    if let Some(link) = deep_link {
+    if state.lock().unwrap().backend_startup_file.is_some() {
+        log::info!("app started with a path provided, attempting to load project");
+        config.url = tauri::WebviewUrl::App(PathBuf::from("editor.html?import_from_tauri"));
+    } else if let Some(link) = deep_link {
         log::info!("deep link: {}", link);
         if let Some(project_id) = link.strip_prefix("penguinmod:projects/") {
             config.url = tauri::WebviewUrl::App(PathBuf::from(format!("fullscreen.html#{}", project_id)));
