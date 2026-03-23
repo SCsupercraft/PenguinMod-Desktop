@@ -2,7 +2,7 @@
 
 use chrono;
 use std::{path::PathBuf, sync::{Arc, Mutex}};
-use tauri::{AppHandle, Manager, State};
+use tauri::{AppHandle, Emitter, Manager, State};
 use tauri_plugin_log;
 use tokio::fs;
 
@@ -41,7 +41,7 @@ pub fn run() {
         )
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_deep_link::init())
-        .invoke_handler(tauri::generate_handler![create_changelog_window, create_main_window, set_complete])
+        .invoke_handler(tauri::generate_handler![create_changelog_window, create_main_window, set_complete, request_startup_file])
         .setup(|app| {
             if let Some(path) = std::env::args()
                 .nth(1)
@@ -189,5 +189,26 @@ async fn create_main_window(
     });
 
     log::info!("created main window");
+    Ok(())
+}
+
+#[tauri::command]
+async fn request_startup_file(
+    app: AppHandle,
+    state: State<'_, Arc<Mutex<SetupState>>>,
+) -> Result<(), String> {
+    let path = {
+        let mut guard = state.lock().unwrap();
+        guard.backend_startup_file.take()
+    };
+
+    if let Some(path) = path {
+        let bytes = tokio::fs::read(&path)
+            .await
+            .map_err(|e| format!("Failed to read file: {}", e))?;
+
+        app.emit("startup-file", bytes).unwrap();
+    }
+    
     Ok(())
 }
