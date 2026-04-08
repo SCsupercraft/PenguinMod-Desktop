@@ -59,7 +59,7 @@ jobs:
     runs-on: ${{ matrix.platform }}
     needs: 
       - build-frontend
-    name: Build Backend
+    name: Build Backend (${{ matrix.name }})
     environment: Publish
     steps:
       - name: Checkout
@@ -97,7 +97,7 @@ jobs:
       - name: Install Frontend Dependencies
         run: npm install
 
-      - name: Build and Upload
+      - name: Build
         uses: tauri-apps/tauri-action@v0
         id: tauri
         env:

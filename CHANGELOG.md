@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.5.12
+
+Updated to the latest version of [PenguinMod](https://penguinmod.com/).
+
+### Changed
+
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `8th of April 2026`
+
 ## v1.5.11
 
 Updated to the latest version of [PenguinMod](https://penguinmod.com/), and made some enhancements.
