@@ -114,6 +114,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.name }}
-          path: ${{ fromJSON(steps.tauri.outputs.artifactPaths) }}
+          path: ${{ join(fromJSON(steps.tauri.outputs.artifactPaths), '\n') }}
           if-no-files-found: error
           retention-days: 1
