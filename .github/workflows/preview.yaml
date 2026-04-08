@@ -60,6 +60,7 @@ jobs:
     needs: 
       - build-frontend
     name: Build Backend
+    environment: Publish
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -99,13 +100,14 @@ jobs:
       - name: Build and Upload
         uses: tauri-apps/tauri-action@v0
         id: tauri
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.UPDATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.UPDATE_PASSWORD }}
         with:
-          appName: PenguinMod Desktop Preview
-          bundleIdentifier: com.penguinmod.app.preview
           includeDebug: true
           includeRelease: false
           includeUpdaterJson: false
-          releaseDraft: true
           args: ${{ matrix.args }}
 
       - name: Upload Artifacts
