@@ -56,7 +56,7 @@ jobs:
             args: ''
             name: Windows
 
-    runs-on: ${{ github.event.inputs.platform }}
+    runs-on: ${{ matrix.platform }}
     needs: 
       - build-frontend
     name: Build Backend
