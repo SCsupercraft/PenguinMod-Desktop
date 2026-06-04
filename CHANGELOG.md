@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.5.15
+
+Updated to the latest version of [PenguinMod](https://penguinmod.com/).
+
+### Changed
+
+- Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `4th of June 2026`
+
 ## v1.5.14
 
 Updated to the latest version of [PenguinMod](https://penguinmod.com/).
@@ -32,7 +40,7 @@ Updated to the latest version of [PenguinMod](https://penguinmod.com/), and made
 
 - Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `19th of March 2026`
 - If the **file selector popup** is unavailable, an alert is displayed telling you to check the downloads folder instead
-- Similarly to the packager, some parts of the editor *should* now display a **file selector popup** (if available)
+- Similarly to the packager, some parts of the editor _should_ now display a **file selector popup** (if available)
   - Previously, it would put the file in your downloads folder without any notification
   - Resolves: [Issue #6](https://github.com/PenguinMod-Desktop/PenguinMod-Desktop/issues/6)
 
@@ -51,7 +59,7 @@ Updated to the latest version of [PenguinMod](https://penguinmod.com/), and made
 
 ### Fixed
 
-- Opening links from PenguinMod Desktop *should* work as intended
+- Opening links from PenguinMod Desktop _should_ work as intended
   - Resolves: [Issue #5](https://github.com/PenguinMod-Desktop/PenguinMod-Desktop/issues/5)
 
 ## v1.5.9
@@ -61,7 +69,7 @@ Updated to the latest version of [PenguinMod](https://penguinmod.com/).
 ### Changed
 
 - Updated to the latest version of [PenguinMod](https://penguinmod.com/) as of the `9th of March 2026`
-- The packager *should* now display a **file selector popup** for saving packaged projects (if available)
+- The packager _should_ now display a **file selector popup** for saving packaged projects (if available)
   - Resolves: [Issue #3](https://github.com/PenguinMod-Desktop/PenguinMod-Desktop/issues/3)
 
 ## v1.5.8

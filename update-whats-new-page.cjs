@@ -112,7 +112,8 @@ function formatChangeLine(line) {
       '<a href="$2" target="_blank" rel="noopener noreferrer nofollow">$1</a>',
     )
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    .replace(/_([^_]+)_/g, '<em>$1</em>');
 }
 
 /**
